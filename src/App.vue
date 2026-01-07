@@ -86,7 +86,7 @@ onUnmounted(() => {
 
     <!-- Footer -->
     <footer class="py-8 text-center text-gray-500 text-sm border-t border-gray-200 bg-white">
-      <p>&copy; {{ new Date().getFullYear() }} Personal Portfolio. Built with Vue 3 & Tailwind.</p>
+      <p>&copy; {{ new Date().getFullYear() }} Personal Portfolio.</p>
     </footer>
   </div>
 </template>
