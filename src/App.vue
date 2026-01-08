@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import ContactSection from './components/ContactSection.vue'
 import { ref, onMounted, onUnmounted } from 'vue'
+import { getUser } from './firebase/auth'
+
+const { user } = getUser()
 
 const isScrolled = ref(false)
 
@@ -85,8 +88,12 @@ onUnmounted(() => {
     </main>
 
     <!-- Footer -->
-    <footer class="py-8 text-center text-gray-500 text-sm border-t border-gray-200 bg-white">
-      <p>&copy; {{ new Date().getFullYear() }} Personal Portfolio.</p>
+    <footer class="py-8 text-center text-gray-500 text-sm border-t border-gray-200 bg-white dark:bg-slate-900 dark:border-slate-800 transition-colors">
+      <p class="mb-2">&copy; {{ new Date().getFullYear() }} Personal Portfolio.</p>
+      
+      <router-link :to="user ? '/admin' : '/login'" class="text-xs text-gray-300 dark:text-gray-700 hover:text-gray-500 dark:hover:text-gray-500 transition-colors">
+        {{ user ? 'Admin Dashboard' : 'Admin Login' }}
+      </router-link>
     </footer>
   </div>
 </template>

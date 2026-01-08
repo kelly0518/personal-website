@@ -1,41 +1,35 @@
 <script setup lang="ts">
-const projects = [
+import { ref } from 'vue'
+
+const projects = ref([
   {
-    title: 'E-Commerce Platform',
-    description: 'A full-stack shopping experience built with Vue 3 and Node.js.',
-    tags: ['Vue', 'Node.js', 'Tailwind'],
-    image: 'shopping_cart',
-    link: '/project/ecommerce'
+    id: '1',
+    title: 'E-Commerce Redesign',
+    description: 'A complete overhaul of a fashion retailer\'s online store, focusing on mobile conversion and user experience.',
+    category: 'UI/UX Design',
+    tags: ['Figma', 'Prototyping', 'User Testing'],
+    image: '', 
+    createdAt: Date.now()
   },
   {
-    title: 'Task Management App',
-    description: 'Productivity tool for teams with real-time updates.',
-    tags: ['React', 'Firebase', 'TypeScript'],
-    image: 'checklist',
-    link: '/project/task-manager'
+    id: '2',
+    title: 'Finance Dashboard',
+    description: 'Real-time analytics dashboard for a fintech startup, visualizing complex data streams.',
+    category: 'Web Development',
+    tags: ['Vue.js', 'D3.js', 'Tailwind'],
+    image: '',
+    createdAt: Date.now()
   },
   {
-    title: 'Weather Dashboard',
-    description: 'Beautiful weather visualizations using public APIs.',
-    tags: ['JavaScript', 'API', 'CSS'],
-    image: 'sunny',
-    link: '/project/weather-dashboard'
-  },
-  {
-    title: 'Personal Portfolio',
-    description: 'Modern portfolio website with glassmorphism design.',
-    tags: ['Vue 3', 'Vite', 'Tailwind'],
-    image: 'person',
-    link: '/project/portfolio'
-  },
-  {
-    title: 'Finance Tracker',
-    description: 'Mobile-first expense tracking application.',
-    tags: ['React Native', 'Expo', 'SQLite'],
-    image: 'attach_money',
-    link: '/project/finance-tracker'
+    id: '3',
+    title: 'Travel App',
+    description: 'Mobile application for itinerary planning and local recommendations.',
+    category: 'Mobile App',
+    tags: ['iOS', 'Swift', 'MapKit'],
+    image: '',
+    createdAt: Date.now()
   }
-]
+])
 </script>
 
 <template>
@@ -50,11 +44,17 @@ const projects = [
         </p>
       </div>
 
+      <div v-if="projects.length === 0" class="text-center text-gray-500 dark:text-slate-400 py-12">
+        <span class="material-symbols-outlined text-4xl mb-2">pending</span>
+        <p>Loading projects or portfolio is empty...</p>
+      </div>
+
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12 px-4">
-        <div v-for="(project, index) in projects" :key="index" class="group relative bg-white dark:bg-gray-300 p-4 pb-8 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-rotate-1 hover:scale-[1.02]">
+        <div v-for="(project) in projects" :key="project.id" class="group relative bg-white dark:bg-gray-300 p-4 pb-8 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-rotate-1 hover:scale-[1.02]">
           <!-- Polaroid Image Area -->
           <div class="aspect-square w-full bg-gray-100 dark:bg-gray-100 mb-6 overflow-hidden flex items-center justify-center border border-gray-100 dark:border-gray-200 transition-colors">
-            <span class="material-symbols-outlined text-6xl text-gray-300 dark:text-gray-300 group-hover:text-gray-500 dark:group-hover:text-gray-500 transition-colors">image</span>
+            <img v-if="project.image && project.image.startsWith('http')" :src="project.image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" :alt="project.title" />
+            <span v-else class="material-symbols-outlined text-6xl text-gray-300 dark:text-gray-300 group-hover:text-gray-500 dark:group-hover:text-gray-500 transition-colors">image</span>
           </div>
           
           <!-- Polaroid Text Area -->
@@ -68,7 +68,7 @@ const projects = [
               </span>
             </div>
             
-            <router-link :to="project.link" class="inline-block mt-2 text-sm font-bold text-black dark:text-black border-b-2 border-black dark:border-black hover:text-gray-600 hover:border-gray-600 transition-all">
+            <router-link :to="'/project/' + project.id" class="inline-block mt-2 text-sm font-bold text-black dark:text-black border-b-2 border-black dark:border-black hover:text-gray-600 hover:border-gray-600 transition-all">
               View Project
             </router-link>
           </div>
